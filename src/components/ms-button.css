@@ -1,0 +1,11 @@
+.ms-button{
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: green;
+    cursor: pointer;
+}
+
+.ms-text{
+    color: #ff0000;
+    font-weight: 800;
+}
