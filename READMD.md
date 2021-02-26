@@ -21,3 +21,30 @@ webpack 的思路:
 
 - 图片加载器 - file-loader
 - css 加载器 - style-loader,css-loader
+- sass 加载器 - style-loader,css-loader,sass-loader ,另外还需要安装 node-sass
+
+## plugin
+
+1. 压缩功能
+2. css 文件分离
+3. 自动生成 HTML 文件
+
+## 生产模式与开发模式
+
+生产模式下无法调试，可以实现代码加密。
+process.env.NODE_EN 获取环境变量
+webpack-serve - 自动重载打包
+
+## 多文件打包
+
+打包多个 js 文件和 css 文件：
+
+```json
+entry: { //多个入口文件
+    "ms-button": "./src/ms-button.js",
+    "ms-img": "./src/ms-img.js"
+},
+filename: "[name].[contenthash].js",// 根据入口取文件名
+```
+
+打包多个 html 文件，实现组件化

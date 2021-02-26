@@ -1,10 +1,11 @@
-import "./ms-button.css"
+import "./ms-button.scss"
 
 class MsButton{
+    buttonClass = "ms-button"
     render(){
         const button = document.createElement("button");
         button.innerHTML = "测试按键"
-        button.classList.add("ms-button");
+        button.classList.add(this.buttonClass);
         const body = document.querySelector("body")
         button.onclick = () => {
             const p = document.createElement("p")

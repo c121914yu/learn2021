@@ -1,11 +1,15 @@
+$text-color: #00ff00;
+$button-color: #00ff00;
+
 .ms-button{
     font-size: 20px;
     padding: 10px 20px;
     background-color: green;
+    color: $button-color;
     cursor: pointer;
 }
 
 .ms-text{
-    color: #ff0000;
+    color: $text-color;
     font-weight: 800;
 }
