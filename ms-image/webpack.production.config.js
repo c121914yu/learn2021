@@ -3,18 +3,14 @@ const TerserPlugin = require("terser-webpack-plugin")
 const MiniCssExtratPlugin = require("mini-css-extract-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const {ModuleFederationPlugin} = require("webpack").container
 
 module.exports = {
-    // entry: "./src/index.js", //单个入口路径
-    entry: { //多个入口文件
-        "ms-button": "./src/ms-button.js",
-        "ms-img": "./src/ms-img.js"
-    },
+    entry: "./src/index.js", //单个入口路径
     output: { //出口文件
-        // filename: "bundle.[contenthash].js",// 文件名
-        filename: "static/[name].[contenthash].js",// 根据入口取文件名
+        filename: "[name].[contenthash].js",// 根据入口取文件名
         path: path.resolve(__dirname,"./dist"),
-        publicPath: "/static/", // 静态文件引用路径，http://127.0.0.1:5500/webpack5/dist/xx.jpg
+        publicPath: "http://localhost:3001/", // 静态文件引用路径，
     },
     mode: "production", //生产环境
     optimization: { // 第三方插件单独打包
@@ -56,26 +52,22 @@ module.exports = {
     plugins: [
         new TerserPlugin(),//压缩
         new MiniCssExtratPlugin({//css文件生成
-            filename: "static/[name].[contenthash].css"
+            filename: "[name].[contenthash].css"
         }),
         new CleanWebpackPlugin(),// 自动删除旧文件
         new HtmlWebpackPlugin({// 自动生成html文件1
-            title: "ms-button",
-            filename: "ms-button.html", //路径名
+            title: "ms-image",
+            filename: "ms-image.html", //路径名
             template: "index.html", //参考模板
-            chunks: ["ms-button"],
             meta: {
-                description: "ms-button"
-            }
-        }), 
-        new HtmlWebpackPlugin({// 自动生成html文件2
-            title: "ms-img",
-            filename: "ms-img.html", //路径名
-            template: "index.html", //参考模板
-            chunks: ["ms-img"],
-            meta: {
-                description: "ms-img"
+                description: "ms-image"
             }
         }),
+        new ModuleFederationPlugin({
+            name: "MsImageApp",
+            remotes: {
+                MsButtonApp: "MsButtonApp@http://localhost:3000/remoteEntry.js"
+            }
+        })
     ]
 }

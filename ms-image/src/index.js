@@ -7,4 +7,11 @@ myH1.render(lodash.upperFirst("ms-img"))
 
 const myImg = new MsImage()
 myImg.render()
-console.log(222)
+
+/* 调用MsButton */
+import("MsButtonApp/MsButton") 
+.then(MsButtonMoule => {
+    const MsButton = MsButtonMoule.default //拿到类
+    const msButton = new MsButton()
+    msButton.render()
+})
